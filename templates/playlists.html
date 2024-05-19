@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist Names</title>
+</head>
+<body>
+   
+<table id="playlists-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+                <th>Source/Destination</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for playlist in playlists %}
+            <tr class="playlists-row">
+                <td>{{ playlist['name'] }}</td>
+                <td>
+                <form action="/youtube/items" method="GET">
+                    <input type="hidden" name="playlist_id" value="{{ playlist['id']}}">
+                    <button type="submit">Get items</button>
+                </form>
+            </td>
+            <td>
+                <form action="/{{ service }}/setSourceOrDestination" method="POST">
+                    <input type="hidden" name="playlist_id" value="{{ playlist['id']}}">
+                    <label for="option1">Source</label>
+			        <input type="radio" id="option1" name="option" value="source">
+
+			        <label for="option2">Destination</label>
+			        <input type="radio" id="option2" name="option" value="destination">
+
+                    <button type="submit">Submit</button>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Spotify Sync</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/spotify/login">Spotify Login</a></li>
+        <li><a href="/spotify/playlists">Spotify Playlists</a></li>
+
+        <li><a href="/youtube/login">YouTube Login</a></li>
+        <li><a href="/youtube/playlists">YouTube Playlists</a></li>
+
+        {% if enable_sync_button %}
+            <li><a href="/startSync">Start sync</a></li>
+        {% else %}
+        {% endif %}
+    </ul>
+</body>
+</html>
