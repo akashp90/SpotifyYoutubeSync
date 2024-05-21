@@ -7,30 +7,11 @@ import json
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
-
-
 import os 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
-SPOTIFY_ACCOUNTS_BASE_URL = "https://accounts.spotify.com"
-SPOTIFY_BASE_URI = "https://api.spotify.com"
-REDIRECT_URI = "http://127.0.0.1:5000/spotify_after_login"
-CLIENT_ID = "a70e7896202b47d2aef770a2085f46c8"
-CLIENT_SECRET = "06e7b4bad080476096789e2777b38159"
-
-
-access_token = ""
-token_type = ""
-expires_in = ""
-refresh_token = ""
-scope = ""
-
-YOUTUBE_API_KEY = "AIzaSyBSAnHRzJMr0slcnUSGTsAwnFOTlZYp-yk"
-YOUTUBE_CLIENT_SECRETS_FILE = "youtube_webapp_client_secret.json"
-SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
-API_SERVICE_NAME = 'youtube'
-API_VERSION = 'v3'
+app.config.from_file("config.json", load=json.load)
 app.secret_key = 'some_secret'
 
 @app.route("/spotify/playlists")
@@ -304,11 +285,6 @@ def spotify_set_source_or_destination():
         session["spotify_destination_playlist_id"] = spotify_playlist_id 
 
     return redirect(url_for("app_home"))
-
-
-@app.route("/")
-def hello_world():
-    return render_template("home.html")
 
 
 def get_videos_in_playlist_from_youtube(response_body):
