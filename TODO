@@ -1,0 +1,5 @@
+TODO: 
+1. Add proper user and session support
+- Flask-SQLAlchemy
+- Migrations
+Whenever a user logs in to Spotify/Youtube, create a user entry 
