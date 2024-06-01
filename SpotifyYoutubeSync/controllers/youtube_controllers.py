@@ -67,7 +67,7 @@ def youtube_login():
 
     # Store the state so the callback can verify the auth server response.
     session["state"] = state
-
+    print(
     return redirect(authorization_url)
 
 
