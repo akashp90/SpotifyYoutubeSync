@@ -14,4 +14,5 @@ Work in progress!
 
 ### Current architecture
 
-![syc_architecture](https://github.com/akashp90/SpotifyYoutubeSync/assets/60420073/34944caa-32a7-46fd-aacf-0735d35a2dff)
+![image](https://github.com/akashp90/SpotifyYoutubeSync/assets/60420073/b33c293d-1e22-4cb8-8601-965e42d6c47d)
+
