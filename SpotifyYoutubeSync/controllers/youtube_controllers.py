@@ -91,8 +91,6 @@ def youtube_after_login():
     credentials = flow.credentials
     session["credentials"] = credentials_to_dict(credentials)
 
-    print("YouTube credentials: " + str(session["credentials"]))
-
     return redirect(url_for("app_home"))
 
 
