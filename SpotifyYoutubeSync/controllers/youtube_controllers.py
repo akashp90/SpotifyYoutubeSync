@@ -9,56 +9,9 @@ import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import os
 from SpotifyYoutubeSync import app
+from ..helpers.helpers import get_video_names_from_playlist, convert_youtube_playlists_to_playlist, credentials_to_dict, get_videos_in_playlist_from_youtube
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-app.secret_key = 'some_secret'
-
-
-def convert_youtube_playlists_to_playlist(youtube_playlists):
-    playlists = []
-
-    for youtube_playlist in youtube_playlists:
-        youtube_playlist_dict = {
-            "name": youtube_playlist["snippet"]["title"],
-            "id": youtube_playlist["id"]
-        }
-        playlists.append(youtube_playlist_dict)
-
-    return playlists
-
-
-
-def get_video_names_from_playlist(playlist_id):
-    credentials = google.oauth2.credentials.Credentials(
-          **session['credentials'])
-
-    youtube = googleapiclient.discovery.build(
-      app.config["API_SERVICE_NAME"], app.config["API_VERSION"], credentials=credentials)
-
-    pageToken = None
-    videos = []
-    num_results = 0
-
-
-    while(1):
-        request = youtube.playlistItems().list(
-            part="contentDetails,id,snippet,status",
-            playlistId=playlist_id,
-            maxResults=50,
-            pageToken=pageToken
-        )
-        response = request.execute()
-        pageToken = response.get("nextPageToken")
-
-        for video in response["items"]:
-            videos.append(video["snippet"]["title"])
-
-        num_results = len(response["items"])
-
-        if not pageToken:
-            break
-
-    return videos
 
 @app.route("/youtube/items")
 def youtube_playlist_items():
@@ -133,15 +86,6 @@ def youtube_after_login():
 
     return redirect(url_for('app_home'))
 
-def credentials_to_dict(credentials):
-  return {'token': credentials.token,
-          'refresh_token': credentials.refresh_token,
-          'token_uri': credentials.token_uri,
-          'client_id': credentials.client_id,
-          'client_secret': credentials.client_secret,
-          'scopes': credentials.scopes}
-
-
 
 @app.route("/youtube/setSourceOrDestination", methods=["POST"])
 def youtube_set_source_or_destination():
@@ -154,35 +98,3 @@ def youtube_set_source_or_destination():
         session["youtube_destination_playlist_id"] = youtube_playlist_id 
 
     return redirect(url_for("app_home"))
-
-
-
-def get_videos_in_playlist_from_youtube(response_body):
-    playlist = response["items"][2]
-    num_videos = playlist["contentDetails"]["itemCount"]
-    videos = []
-    pageToken = None
-    num_results = 0
-    
-    while(num_results < num_videos):
-        request = youtube.playlistItems().list(
-            part="contentDetails,id,snippet,status",
-            playlistId=playlist["id"],
-            maxResults=50,
-            pageToken=pageToken
-        )
-        response = request.execute()
-        pageToken = response.get("nextPageToken")
-
-        if not pageToken:
-            break
-
-        for video in response["items"]:
-            videos.append(video["snippet"]["title"])
-
-        num_results = len(response["items"])
-
-
-    print("Video names: ")
-
-    print(str(videos))
