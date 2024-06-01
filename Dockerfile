@@ -1,4 +1,4 @@
-FROM python:3.7.17-bookworm
+FROM python:3.10-bookworm
 
 RUN apt-get update -y && apt-get upgrade -y && apt-get install git python3-dev python3-pip python3-setuptools build-essential libssl-dev libseccomp-dev -y
 
