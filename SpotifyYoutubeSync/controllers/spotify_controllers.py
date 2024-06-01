@@ -12,12 +12,10 @@ def spotify_playlists():
     headers = {
         "Authorization": "Bearer " + session["spotify_credentials"]["access_token"]
     }
-    print("Headers: " + str(headers))
 
     user_response = requests.get(
         app.config["SPOTIFY_BASE_URI"] + "/v1/me/playlists", headers=headers
     )
-    print("Playlists response status: " + str(user_response.status_code))
     user_body = json.loads(user_response.content)
     playlists = user_body["items"]
 

@@ -16,7 +16,11 @@ from ..helpers.helpers import (
     get_videos_in_playlist_from_youtube,
 )
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+if os.environ["ENVIRONMENT"] == "PRODUCTION":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "0"
+else:
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
 @app.route("/youtube/items")
@@ -90,8 +94,6 @@ def youtube_after_login():
     #              credentials in a persistent database instead.
     credentials = flow.credentials
     session["credentials"] = credentials_to_dict(credentials)
-
-    print("YouTube credentials: " + str(session["credentials"]))
 
     return redirect(url_for("app_home"))
 

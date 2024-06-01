@@ -3,3 +3,7 @@ TODO:
 - Flask-SQLAlchemy
 - Migrations
 Whenever a user logs in to Spotify/Youtube, create a user entry 
+
+
+2. Add production/development environment
+3. Flask secret
