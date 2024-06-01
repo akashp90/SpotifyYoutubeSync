@@ -16,7 +16,11 @@ from ..helpers.helpers import (
     get_videos_in_playlist_from_youtube,
 )
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+if os.environ["ENVIRONMENT"] == "PRODUCTION":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "0"
+else:
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
 @app.route("/youtube/items")
@@ -67,7 +71,7 @@ def youtube_login():
 
     # Store the state so the callback can verify the auth server response.
     session["state"] = state
-    print(
+
     return redirect(authorization_url)
 
 
