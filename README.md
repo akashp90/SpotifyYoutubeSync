@@ -1,6 +1,6 @@
 # SpotifyYoutubeSync
 
-## Now available at https://youtubespotifysync.com
+## Will be available at https://youtubespotifysync.com
 
 
 App is still in development, and as you can see, I am not a front-end expert. 
@@ -12,6 +12,7 @@ Then you must have a lot of painfully curated playlists on YouTube which you wan
 With this app, you now can! 
 Work in progress! 
 
+Note: I've temporarily shut down the ECS service, cluster and EC2 instance to save costs while the application is under development
 ### Current architecture
 
 ![syc_architecture](https://github.com/akashp90/SpotifyYoutubeSync/assets/60420073/4bb49da2-0a38-4511-97b5-d4f2e478bf0e)
